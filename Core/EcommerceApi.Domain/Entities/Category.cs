@@ -20,9 +20,9 @@ namespace EcommerceApi.Domain.Entities
             Name = name;
             Priority = priority;
         }
-        public required int ParentId { get; set; } = 0;
-        public required string Name { get; set; } = string.Empty;
-        public required int Priority { get; set; }
+        public int ParentId { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
+        public int Priority { get; set; }
         public ICollection<Detail> Details { get; set; }
         public ICollection<Product> Products { get; set; }
     }

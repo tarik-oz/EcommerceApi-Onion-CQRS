@@ -17,6 +17,6 @@ namespace EcommerceApi.Domain.Entities
         {
             Name = name;
         }
-        public required string Name { get; set; }
+        public string Name { get; set; }
     }
 }
