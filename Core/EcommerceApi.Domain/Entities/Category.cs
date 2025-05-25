@@ -24,6 +24,6 @@ namespace EcommerceApi.Domain.Entities
         public string Name { get; set; } = string.Empty;
         public int Priority { get; set; }
         public ICollection<Detail> Details { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
     }
 }
