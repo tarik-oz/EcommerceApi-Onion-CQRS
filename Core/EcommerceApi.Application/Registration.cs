@@ -1,4 +1,5 @@
-﻿using EcommerceApi.Application.Behaviors;
+﻿using EcommerceApi.Application.Bases;
+using EcommerceApi.Application.Behaviors;
 using EcommerceApi.Application.Exceptions;
 using EcommerceApi.Application.Features.Products.Command.CreateProduct;
 using FluentValidation;
@@ -24,10 +25,24 @@ namespace EcommerceApi.Application
 
             services.AddTransient<ExceptionMiddleware>();
 
+            services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
+
             services.AddValidatorsFromAssembly(assembly);
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("tr");
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
+        }
+
+        private static IServiceCollection AddRulesFromAssemblyContaining(
+            this IServiceCollection services,
+            Assembly assembly,
+            Type type)
+        {
+            var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+            foreach (var item in types)
+                services.AddTransient(item);
+
+            return services;
         }
     }
 }
