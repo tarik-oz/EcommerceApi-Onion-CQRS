@@ -1,7 +1,12 @@
-﻿using EcommerceApi.Application.Exceptions;
+﻿using EcommerceApi.Application.Behaviors;
+using EcommerceApi.Application.Exceptions;
+using EcommerceApi.Application.Features.Products.Command.CreateProduct;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,6 +23,11 @@ namespace EcommerceApi.Application
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
             services.AddTransient<ExceptionMiddleware>();
+
+            services.AddValidatorsFromAssembly(assembly);
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("tr");
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
         }
     }
 }

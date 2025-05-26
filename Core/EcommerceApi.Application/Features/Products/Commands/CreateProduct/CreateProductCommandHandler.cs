@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceApi.Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, Unit>
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -17,7 +17,7 @@ namespace EcommerceApi.Application.Features.Products.Commands.CreateProduct
         {
             this.unitOfWork = unitOfWork;
         }
-        public async Task Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
         {
             Product product = new Product
             {
@@ -40,6 +40,8 @@ namespace EcommerceApi.Application.Features.Products.Commands.CreateProduct
 
                 await unitOfWork.SaveAsync();
             }
+
+            return Unit.Value;
         }
     }
 }

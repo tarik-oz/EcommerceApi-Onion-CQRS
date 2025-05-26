@@ -33,14 +33,14 @@ namespace EcommerceApi.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommandRequest request)
         {
             await mediator.Send(request);
             return Ok();
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteProduct(DeleteProductCommandRequest request)
         {
             await mediator.Send(request);
