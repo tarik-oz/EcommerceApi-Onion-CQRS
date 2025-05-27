@@ -1,7 +1,7 @@
 ﻿using EcommerceApi.Application.Exceptions;
 using Microsoft.AspNetCore.Builder;
 
-namespace YoutubeApi.Application.Exceptions
+namespace EcommerceApi.Application.Exceptions
 {
     public static class ConfigureExceptionMiddleware
     {
