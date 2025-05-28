@@ -16,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Youtube API", Version = "v1", Description = "Youtube API swagger client." });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce API", Version = "v1", Description = "Ecommerce API swagger client." });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -42,6 +42,9 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var env = builder.Environment;
 

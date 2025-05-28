@@ -1,20 +1,20 @@
-﻿using MediatR;
+﻿using EcommerceApi.Application.Bases;
 using EcommerceApi.Application.Interfaces.AutoMapper;
 using EcommerceApi.Application.Interfaces.UnitOfWorks;
 using EcommerceApi.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace EcommerceApi.Application.Features.Products.Command.UpdateProduct
 {
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommandRequest, Unit>
+    public class UpdateProductCommandHandler : BaseHandler, IRequestHandler<UpdateProductCommandRequest, Unit>
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
-
-        public UpdateProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateProductCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) 
+            : base(mapper, unitOfWork, httpContextAccessor)
         {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+
         }
+
         public async Task<Unit> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
             var product = await unitOfWork.GetReadRepository<Product>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);

@@ -1,7 +1,10 @@
-﻿using EcommerceApi.Application.Features.Products.Rules;
+﻿using EcommerceApi.Application.Bases;
+using EcommerceApi.Application.Features.Products.Rules;
+using EcommerceApi.Application.Interfaces.AutoMapper;
 using EcommerceApi.Application.Interfaces.UnitOfWorks;
 using EcommerceApi.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +13,13 @@ using System.Threading.Tasks;
 
 namespace EcommerceApi.Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, Unit>
+    public class CreateProductCommandHandler : BaseHandler, IRequestHandler<CreateProductCommandRequest, Unit>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly ProductRules productRules;
 
-        public CreateProductCommandHandler(IUnitOfWork unitOfWork, ProductRules productRules)
+        public CreateProductCommandHandler(ProductRules productRules, IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) 
+            : base(mapper, unitOfWork, httpContextAccessor)
         {
-            this.unitOfWork = unitOfWork;
             this.productRules = productRules;
         }
 
