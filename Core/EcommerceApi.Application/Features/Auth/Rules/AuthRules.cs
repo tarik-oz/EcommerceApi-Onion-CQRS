@@ -28,5 +28,12 @@ namespace EcommerceApi.Application.Features.Auth.Rules
             if (expiryDate <= DateTime.Now) throw new RefreshTokenShouldNotBeExpiredException();
             return Task.CompletedTask;
         }
+
+        public Task RefreshTokenMustBeValid(User? user, string? requestRefreshToken)
+        {
+            if (user == null || user.RefreshToken != requestRefreshToken)
+                throw new RefreshTokenMustBeValidException();
+            return Task.CompletedTask;
+        }
     }
 }

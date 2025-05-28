@@ -35,6 +35,9 @@ namespace EcommerceApi.Application.Features.Auth.Commands.RefreshToken
             string email = principal.FindFirstValue(ClaimTypes.Email);
 
             User? user = await userManager.FindByEmailAsync(email);
+
+            await authRules.RefreshTokenMustBeValid(user, request.RefreshToken);
+
             IList<string> roles = await userManager.GetRolesAsync(user);
 
             await authRules.RefreshTokenShouldNotBeExpired(user.RefreshTokenExpiryTime);
