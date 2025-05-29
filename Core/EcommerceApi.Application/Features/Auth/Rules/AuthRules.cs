@@ -31,8 +31,13 @@ namespace EcommerceApi.Application.Features.Auth.Rules
 
         public Task RefreshTokenMustBeValid(User? user, string? requestRefreshToken)
         {
-            if (user == null || user.RefreshToken != requestRefreshToken)
-                throw new RefreshTokenMustBeValidException();
+            if (user is null || user.RefreshToken != requestRefreshToken) throw new RefreshTokenMustBeValidException();
+            return Task.CompletedTask;
+        }
+        
+        public Task EmailAddressShouldBeValid(User? user)
+        {
+            if (user is null) throw new EmailAddressShouldBeValidException();
             return Task.CompletedTask;
         }
     }
